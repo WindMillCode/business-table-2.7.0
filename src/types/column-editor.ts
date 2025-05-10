@@ -94,6 +94,8 @@ interface EditorDatetimeOptions {
    * @type {string}
    */
   max?: string;
+
+  manualInputIsEnabled?: boolean  
 }
 
 interface EditorDateOptions {
