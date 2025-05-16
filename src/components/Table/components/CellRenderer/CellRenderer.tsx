@@ -12,6 +12,7 @@ import {
   JsonCellRenderer,
   LayoutCellRenderer,
   PreformattedCellRenderer,
+  MediaCellRenderer
 } from './components';
 
 /**
@@ -53,7 +54,7 @@ export const CellRenderer: React.FC<Props> = ({ renderValue, column, bgColor, ro
       return <LayoutCellRenderer value={String(rawValue)} row={row} bgColor={bgColor} />;
     }
     case CellType.IMAGE: {
-      return <ImageCellRenderer value={String(rawValue)} column={column} />;
+      return <MediaCellRenderer value={String(rawValue)} column={column} />;
     }
     case CellType.FILE: {
       return <FileCellRenderer value={rawValue as string} field={field} config={config} bgColor={bgColor} />;

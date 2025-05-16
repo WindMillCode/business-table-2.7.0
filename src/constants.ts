@@ -211,6 +211,9 @@ export const TEST_IDS = {
   imageCellRenderer: {
     root: createSelector('data-testid image-cell-renderer'),
   },
+  mediaCellRenderer: {
+    root: createSelector('data-testid media-cell-renderer'),
+  },  
   fileCellRenderer: {
     buttonSave: createSelector('data-testid file-cell-renderer button-save'),
     error: createSelector('data-testid file-cell-renderer error'),

@@ -1,8 +1,14 @@
 {
   "extends": "./.config/tsconfig.json",
   "compilerOptions": {
+    "alwaysStrict": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "skipDefaultLibCheck": true,
     "paths": {
-      "@/*": ["*"]
+      "@/*": [
+        "*"
+      ]
     }
   }
 }

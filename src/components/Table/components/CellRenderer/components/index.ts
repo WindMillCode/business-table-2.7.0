@@ -6,3 +6,4 @@ export * from './ImageCellRenderer';
 export * from './JsonCellRenderer';
 export * from './LayoutCellRenderer';
 export * from './PreformattedCellRenderer';
+export * from './MediaCellRenderer'

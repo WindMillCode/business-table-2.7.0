@@ -192,9 +192,21 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
       >
         <DateTimePicker
           date={dateTime(value ? (value as string) : undefined)}
-          onChange={(date) => onChange(date?.toISOString())}
+          onChange={(date) => {
+            const newValue = date?.toISOString();
+            debugger
+            onChange(newValue)
+          }}
           minDate={config.min ? new Date(config.min) : undefined}
           maxDate={config.max ? new Date(config.max) : undefined}
+          showSeconds={false}
+          timeZone='browser'
+          disabledMinutes={ () => {
+            const allowedMinutes = [0, 15, 30, 45];
+            return Array.from({ length: 60 }, (x, i) => i).filter(
+              (minute) => !allowedMinutes.includes(minute)
+            );
+          }}
           {...TEST_IDS.editableCell.fieldDatetime.apply()}
         />
       </div>
