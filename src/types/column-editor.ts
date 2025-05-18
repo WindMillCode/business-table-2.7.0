@@ -96,6 +96,11 @@ interface EditorDatetimeOptions {
   max?: string;
 
   manualInputIsEnabled?: boolean  
+
+  showSeconds?:boolean 
+  allowedHours?:number[]
+  allowedMinutes?:number[]
+  allowedSeconds?:number[]
 }
 
 interface EditorDateOptions {

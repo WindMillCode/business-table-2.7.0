@@ -1,7 +1,6 @@
 import { AppEvents, dateTime, dateTimeFormat } from '@grafana/data';
 import { getAppEvents } from '@grafana/runtime';
 import {
-  DateTimePicker,
   InlineField,
   InlineFieldRow,
   InlineSwitch,
@@ -24,9 +23,10 @@ import {
 } from '@/utils';
 
 import { DateEditor, QueryOptionsEditor } from './components';
-import { FileListItem } from '@/grafana-ui/FileDropzone/FileListItem';
-import { FileDropzone } from '@/grafana-ui/FileDropzone';
+import { FileListItem } from '@/grafana-ui/src/components/FileDropzone/FileListItem';
+import { FileDropzone } from '@/grafana-ui/src/components/FileDropzone';
 import { FileRejection } from 'react-dropzone/.';
+import { DateTimePicker } from '@/grafana-ui/src';
 
 /**
  * Editable Column Editors Registry
@@ -200,14 +200,23 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
             }}
             minDate={config.min ? new Date(config.min) : undefined}
             maxDate={config.max ? new Date(config.max) : undefined}
-            showSeconds={false}
+            showSeconds={config.showSeconds}
             timeZone='browser'
-            // disabledMinutes={() => {
-            //   const allowedMinutes = [0, 15, 30, 45];
-            //   return Array.from({ length: 60 }, (x, i) => i).filter(
-            //     (minute) => !allowedMinutes.includes(minute)
-            //   );
-            // }}
+            disabledHours={() => {
+              return Array.from({ length: 60 }, (x, i) => i).filter(
+                (minute) => !config.allowedHours.includes(minute)
+              );
+            }}
+            disabledMinutes={() => {
+              return Array.from({ length: 60 }, (x, i) => i).filter(
+                (minute) => !config.allowedMinutes.includes(minute)
+              );
+            }}
+            disabledSeconds={() => {
+              return Array.from({ length: 60 }, (x, i) => i).filter(
+                (minute) => !config.allowedSeconds.includes(minute)
+              );
+            }}            
             {...TEST_IDS.editableCell.fieldDatetime.apply()}
           />
         </div>
@@ -216,6 +225,10 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
     getControlOptions: ({ config }) => ({
       ...config,
       manualInputIsEnabled: config.manualInputIsEnabled ?? false,
+      showSeconds: config.showSeconds ?? false,
+      allowedHours: config.allowedHours ?? [],
+      allowedMinutes: config.allowedMinutes ?? [],
+      allowedSeconds: config.allowedSeconds ?? [],
     }),
   }),
   createEditableColumnEditorRegistryItem({
