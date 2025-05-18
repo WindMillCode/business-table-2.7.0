@@ -17,6 +17,20 @@ import {
   ToolbarButtonsAlignment,
 } from '@/types';
 
+
+export const COMMON_FILE_EXTENSIONS = [
+  { value: 'image/jpg', label: 'jpg' },
+  { value: 'image/jpeg', label: 'jpeg' },
+  { value: 'image/png', label: 'png' },
+  { value: 'image/gif', label: 'gif' },
+  { value: 'application/pdf', label: 'pdf' },
+  { value: 'video/mp4', label: 'mp4' },  // Added MP4 support here
+  { value: 'text/plain', label: 'txt' },
+  { value: 'application/msword', label: 'doc' },
+  { value: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', label: 'docx' },
+  // Add more as needed...
+];
+
 /**
  * Default Column Appearance
  */

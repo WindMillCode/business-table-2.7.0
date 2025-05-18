@@ -110,13 +110,17 @@ interface EditorDateOptions {
 /**
  * File Editor Options
  */
-interface EditorFileOptions {
+export interface EditorFileOptions {
   /**
    * Accept file types
    *
    * @type {string}
    */
   accept?: string;
+  fileExtensions?: string[],
+  mimeType?:string[],
+  maxSize?: number,
+  limit?: number,  
 }
 
 /**

@@ -8,7 +8,6 @@ import {
   DefaultCellRenderer,
   FileCellRenderer,
   GaugeCellRenderer,
-  ImageCellRenderer,
   JsonCellRenderer,
   LayoutCellRenderer,
   PreformattedCellRenderer,
@@ -43,6 +42,7 @@ export const CellRenderer: React.FC<Props> = ({ renderValue, column, bgColor, ro
   const rawValue = renderValue() as number | string;
 
   const cellType = config.type || CellType.AUTO;
+
 
   switch (cellType) {
     case CellType.AUTO:

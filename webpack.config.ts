@@ -2,7 +2,7 @@
 import type { Configuration } from 'webpack';
 import { merge } from 'webpack-merge';
 import grafanaConfig from './.config/webpack/webpack.config';
-
+import { resolve } from 'path'
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 /**

@@ -486,7 +486,7 @@ export const Table = <TData,>({
    * Row Virtualizer
    * Options description - https://tanstack.com/virtual/v3/docs/api/virtualizer
    */
-  const rowVirtualizer = useVirtualizer({
+  const rowVirtualizer:any = useVirtualizer({
     getScrollElement: useCallback(() => scrollableContainerRef.current, [scrollableContainerRef]),
     count: rows.length,
     getItemKey: useCallback((index: number) => rows[index].id, [rows]),
@@ -527,6 +527,7 @@ export const Table = <TData,>({
    * Set table instance
    */
   useEffect(() => {
+    // @ts-ignore
     tableInstance.current = table;
   }, [table, tableInstance]);
 

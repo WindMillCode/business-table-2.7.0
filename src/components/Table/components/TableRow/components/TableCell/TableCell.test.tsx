@@ -71,7 +71,7 @@ describe('TableCell', () => {
     columnPinning = defaultColumnPinning,
   }: {
     data: unknown[];
-    columns: Array<ColumnDef<any>>;
+    columns: Array<ColumnDef<any>> | any;
     rowIndex: number;
     grouping?: GroupingState;
     expanded?: ExpandedState;

@@ -3,8 +3,14 @@
   "compilerOptions": {
     "alwaysStrict": false,
     "skipLibCheck": true,
-    "noImplicitAny": false,
     "skipDefaultLibCheck": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strict": false,    
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
+    "noImplicitReturns": false,
     "paths": {
       "@/*": [
         "*"

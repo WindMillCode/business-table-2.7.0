@@ -79,7 +79,7 @@ export enum ColumnHeaderFontSize {
 /**
  * Column Filter Value
  */
-export type ColumnFilterValue =
+export type ColumnFilterValue = any
   | {
       type: ColumnFilterType.FACETED;
       value: string[];

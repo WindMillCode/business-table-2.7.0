@@ -56,7 +56,7 @@ describe('TableRow', () => {
     isNewRow,
   }: {
     data: unknown[];
-    columns: Array<ColumnDef<any>>;
+    columns: Array<ColumnDef<any>> | any;
     rowIndex: number;
     grouping?: GroupingState;
     expanded?: ExpandedState;
