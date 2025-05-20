@@ -27,7 +27,6 @@ export const useUserStorage = (key: string, version: number) => {
     }
 
     return undefined;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, version]);
 
   /**
@@ -46,7 +45,6 @@ export const useUserStorage = (key: string, version: number) => {
 
       return data;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [key, version]
   );
 

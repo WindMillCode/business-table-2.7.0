@@ -15,7 +15,6 @@ interface Props extends EditorProps<string | undefined> {
    *
    * @type {string}
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   'data-testid'?: string;
 }
 

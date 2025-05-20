@@ -1,5 +1,5 @@
 import { DataFrame, PanelData, SelectableValue } from '@grafana/data';
-// eslint-disable-next-line @typescript-eslint/naming-convention
+import { TimeZone } from '@grafana/schema';
 import React from 'react';
 
 /**
@@ -101,6 +101,8 @@ interface EditorDatetimeOptions {
   allowedHours?:number[]
   allowedMinutes?:number[]
   allowedSeconds?:number[]
+  timeZone?:TimeZone
+  inputFormat?:string
 }
 
 interface EditorDateOptions {

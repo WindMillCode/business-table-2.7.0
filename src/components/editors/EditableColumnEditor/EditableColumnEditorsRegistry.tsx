@@ -1,4 +1,4 @@
-import { AppEvents, dateTime, dateTimeFormat } from '@grafana/data';
+import { AppEvents, DateTime, dateTime, dateTimeFormat } from '@grafana/data';
 import { getAppEvents } from '@grafana/runtime';
 import {
   InlineField,
@@ -8,7 +8,10 @@ import {
   Label,
   Select,
   TextArea,
-  MultiCombobox
+  MultiCombobox,
+  DateTimePicker,
+  FileListItem,
+  FileDropzone
 } from '@grafana/ui';
 import { NumberInput } from '@volkovlabs/components';
 import React, { ChangeEvent } from 'react';
@@ -23,10 +26,8 @@ import {
 } from '@/utils';
 
 import { DateEditor, QueryOptionsEditor } from './components';
-import { FileListItem } from '@/grafana-ui/src/components/FileDropzone/FileListItem';
-import { FileDropzone } from '@/grafana-ui/src/components/FileDropzone';
+
 import { FileRejection } from 'react-dropzone/.';
-import { DateTimePicker } from '@/grafana-ui/src';
 
 /**
  * Editable Column Editors Registry
@@ -168,6 +169,13 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
     ),
     control: ({ value, onChange, config }) => {
 
+      let updatedDate: DateTime
+      updatedDate = dateTime(value ? (value as string) : undefined, config.inputFormat)
+      const isInvalidDate = isNaN(updatedDate.toDate().getTime());
+      if (isInvalidDate) {
+
+        updatedDate = dateTime(value ? (value as string) : undefined)
+      }
       return (
         <div
           onKeyDown={(e) => {
@@ -193,7 +201,7 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
           }}
         >
           <DateTimePicker
-            date={dateTime(value ? (value as string) : undefined)}
+            date={updatedDate}
             onChange={(date) => {
               const newValue = date?.toISOString();
               onChange(newValue)
@@ -201,9 +209,10 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
             minDate={config.min ? new Date(config.min) : undefined}
             maxDate={config.max ? new Date(config.max) : undefined}
             showSeconds={config.showSeconds}
-            timeZone='browser'
+            timeZone={config.timeZone}
+            use12Hours={true}
             disabledHours={() => {
-              return Array.from({ length: 60 }, (x, i) => i).filter(
+              return Array.from({ length: 24 }, (x, i) => i).filter(
                 (minute) => !config.allowedHours.includes(minute)
               );
             }}
@@ -216,7 +225,7 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
               return Array.from({ length: 60 }, (x, i) => i).filter(
                 (minute) => !config.allowedSeconds.includes(minute)
               );
-            }}            
+            }}
             {...TEST_IDS.editableCell.fieldDatetime.apply()}
           />
         </div>
@@ -226,9 +235,11 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
       ...config,
       manualInputIsEnabled: config.manualInputIsEnabled ?? false,
       showSeconds: config.showSeconds ?? false,
-      allowedHours: config.allowedHours ?? [],
-      allowedMinutes: config.allowedMinutes ?? [],
-      allowedSeconds: config.allowedSeconds ?? [],
+      allowedHours: config.allowedHours ?? Array.from({ length: 24 }, (x, i) => i),
+      allowedMinutes: config.allowedMinutes ?? Array.from({ length: 60 }, (x, i) => i),
+      allowedSeconds: config.allowedSeconds ?? Array.from({ length: 60 }, (x, i) => i),
+      timeZone: config.timeZone ?? "America/New_York",
+      inputFormat: config.inputFormat ?? "ddd MMMM DD, YYYY h:mmA"
     }),
   }),
   createEditableColumnEditorRegistryItem({

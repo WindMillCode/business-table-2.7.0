@@ -18,7 +18,6 @@ export const useStorage = (key: string, version: number) => {
     /**
      * Return local storage
      */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     return useLocalStorage(key, version);
   }
 };
