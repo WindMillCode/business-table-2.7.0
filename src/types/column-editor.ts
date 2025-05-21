@@ -103,6 +103,7 @@ interface EditorDatetimeOptions {
   allowedSeconds?:number[]
   timeZone?:TimeZone
   inputFormat?:string
+  use12Hours?:boolean
 }
 
 interface EditorDateOptions {

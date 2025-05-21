@@ -173,62 +173,38 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
       updatedDate = dateTime(value ? (value as string) : undefined, config.inputFormat)
       const isInvalidDate = isNaN(updatedDate.toDate().getTime());
       if (isInvalidDate) {
-
         updatedDate = dateTime(value ? (value as string) : undefined)
       }
       return (
-        <div
-          onKeyDown={(e) => {
-            if (!config.manualInputIsEnabled && !['Tab', 'Shift', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
-              e.preventDefault();
-              // code to show the toast
-              appEvents.publish({
-                type: AppEvents.alertWarning.name,
-                payload: ['Please click the calendar icon to use the date picker to modify the date']
-              });
-            }
+        <DateTimePicker
+          date={updatedDate}
+          onChange={(date) => {
+            const newValue = date?.toISOString();
+            onChange(newValue)
           }}
-          onClick={(e) => {
-            // If the user clicks on the input while typing is disabled, open the picker
-            // @ts-expect-error TODO what type  is this
-            if (!config.manualInputIsEnabled && e.target.tagName.toLowerCase() === 'input') {
-              // code to show the toast
-              appEvents.publish({
-                type: AppEvents.alertWarning.name,
-                payload: ['Please click the calendar icon to use the date picker to modify the date']
-              });
-            }
+          minDate={config.min ? new Date(config.min) : undefined}
+          maxDate={config.max ? new Date(config.max) : undefined}
+          showSeconds={config.showSeconds}
+          timeZone={config.timeZone}
+          use12Hours={true}
+          disabledHours={() => {
+            return Array.from({ length: 24 }, (x, i) => i).filter(
+              (minute) => !config.allowedHours.includes(minute)
+            );
           }}
-        >
-          <DateTimePicker
-            date={updatedDate}
-            onChange={(date) => {
-              const newValue = date?.toISOString();
-              onChange(newValue)
-            }}
-            minDate={config.min ? new Date(config.min) : undefined}
-            maxDate={config.max ? new Date(config.max) : undefined}
-            showSeconds={config.showSeconds}
-            timeZone={config.timeZone}
-            use12Hours={true}
-            disabledHours={() => {
-              return Array.from({ length: 24 }, (x, i) => i).filter(
-                (minute) => !config.allowedHours.includes(minute)
-              );
-            }}
-            disabledMinutes={() => {
-              return Array.from({ length: 60 }, (x, i) => i).filter(
-                (minute) => !config.allowedMinutes.includes(minute)
-              );
-            }}
-            disabledSeconds={() => {
-              return Array.from({ length: 60 }, (x, i) => i).filter(
-                (minute) => !config.allowedSeconds.includes(minute)
-              );
-            }}
-            {...TEST_IDS.editableCell.fieldDatetime.apply()}
-          />
-        </div>
+          disabledMinutes={() => {
+            return Array.from({ length: 60 }, (x, i) => i).filter(
+              (minute) => !config.allowedMinutes.includes(minute)
+            );
+          }}
+          disabledSeconds={() => {
+            return Array.from({ length: 60 }, (x, i) => i).filter(
+              (minute) => !config.allowedSeconds.includes(minute)
+            );
+          }}
+          manualInputIsEnabled={config.manualInputIsEnabled}
+          {...TEST_IDS.editableCell.fieldDatetime.apply()}
+        />
       )
     },
     getControlOptions: ({ config }) => ({
@@ -239,7 +215,8 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
       allowedMinutes: config.allowedMinutes ?? Array.from({ length: 60 }, (x, i) => i),
       allowedSeconds: config.allowedSeconds ?? Array.from({ length: 60 }, (x, i) => i),
       timeZone: config.timeZone ?? "America/New_York",
-      inputFormat: config.inputFormat ?? "ddd MMMM DD, YYYY h:mmA"
+      inputFormat: config.inputFormat ?? "ddd MMMM DD, YYYY h:mmA",
+      use12Hours:config.use12Hours ?? true
     }),
   }),
   createEditableColumnEditorRegistryItem({
