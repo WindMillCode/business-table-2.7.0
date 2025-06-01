@@ -72,3 +72,37 @@ services:
       - dev
       - main
       - dependency
+
+  grafana-windmillcode-dev:
+    image: ghcr.io/volkovlabs/app:latest
+    ports:
+      - 3003:3000/tcp
+    environment:
+      - GF_SERVER_HTTP_ADDR=0.0.0.0    
+      - GF_DEFAULT_APP_MODE=development
+      - GF_USERS_DEFAULT_THEME=dark
+      - GF_INSTALL_PLUGINS=marcusolsson-static-datasource,volkovlabs-variable-panel,volkovlabs-form-panel,volkovlabs-image-panel,yesoreyeram-infinity-datasource
+      - GF_PLUGINS_PREINSTALL=mysql
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=XzCjmcqbV78@.Ln
+    volumes:
+      - ./dist:/var/lib/grafana/plugins/volkovlabs-table-panel
+    profiles:
+      - windmillcode-dev
+
+  grafana-windmillcode-main:
+    image: grafana/grafana:main
+    ports:
+      - 3003:3000/tcp
+    environment:
+      - GF_SERVER_HTTP_ADDR=0.0.0.0    
+      - GF_DEFAULT_APP_MODE=development
+      - GF_USERS_DEFAULT_THEME=dark
+      - GF_INSTALL_PLUGINS=marcusolsson-static-datasource,volkovlabs-variable-panel,volkovlabs-form-panel,volkovlabs-image-panel,yesoreyeram-infinity-datasource
+      - GF_PLUGINS_PREINSTALL=mysql
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=XzCjmcqbV78@.Ln      
+    volumes:
+      - ./dist:/var/lib/grafana/plugins/volkovlabs-table-panel
+    profiles:
+      - windmillcode-main      

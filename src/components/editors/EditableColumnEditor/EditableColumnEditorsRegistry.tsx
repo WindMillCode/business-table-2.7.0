@@ -12,7 +12,7 @@ import {
   DateTimePicker,
   FileListItem,
   FileDropzone
-} from '@grafana/ui';
+} from '@windmillcode/grafana-ui';
 import { NumberInput } from '@volkovlabs/components';
 import React, { ChangeEvent } from 'react';
 
@@ -178,6 +178,7 @@ export const editableColumnEditorsRegistry = createEditableColumnEditorsRegistry
       return (
         <DateTimePicker
           date={updatedDate}
+          inputFormat={config.inputFormat}
           onChange={(date) => {
             const newValue = date?.toISOString();
             onChange(newValue)
